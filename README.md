@@ -12,11 +12,11 @@ bash ~/RoboMFG_Dynamixel_Integration/install.sh
 ```
 -add the update manager entry to the moonraker.conf file in your config folder
 ```
-[update_manager IDEX]
+[update_manager DYNAMIXEL]
 type: git_repo
 primary_branch: main
-path: ~/vcore-idex
-origin: https://github.com/HelgeKeck/vcore-idex.git
+path: ~/RoboMFG_Dynamixel_Integration
+origin: https://github.com/Advanced-Manufacturing-at-UoL/RoboMFG_Dynamixel_Integration.git
 managed_services:
 	klipper
 ```
