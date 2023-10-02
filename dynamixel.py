@@ -103,7 +103,7 @@ class Dynamixel:
         result = 1.
         for g1, g2 in gear_ratio:
             result *= g1 / g2
-        return result
+        return float(result)
 
 def load_config_prefix(config):
     return Dynamixel(config)
