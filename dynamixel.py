@@ -12,6 +12,7 @@ class Dynamixel:
         self.accel = config.getint('acceleration',0)
         self.offset = config.getfloat('offset',0)
         self.name = config.get_name().split(' ')[-1]
+        self.gear_ratio = self.parse_gear_ratio
 
         dxl_io = dynio.dxl.DynamixelIO(self.port, 1000000) # your port for U2D2 or other serial device
 
@@ -76,6 +77,7 @@ class Dynamixel:
         return moving
 
     def do_move(self, movepos):
+        movepos = movepos * self.gear_ratio
         self.dxl.set_angle(movepos)
         while self.check_movement is True:
             pass
@@ -95,6 +97,13 @@ class Dynamixel:
     def set_accel(self, accel):
         self.dxl.set_acceleration(int(accel))
         self.accel = accel
+
+    def parse_gear_ratio(self, config):
+        gear_ratio = config.getlists('gear_ratio', (), seps=(':', ','), count=2, parser=float)
+        result = 1.
+        for g1, g2 in gear_ratio:
+            result *= g1 / g2
+        return result
 
 def load_config_prefix(config):
     return Dynamixel(config)
