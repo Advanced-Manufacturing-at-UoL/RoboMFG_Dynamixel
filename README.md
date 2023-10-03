@@ -7,8 +7,8 @@ Klipper integration of Robotis Dynamixel servos
 - clone the Dynamixel repo
 ```
 cd ~/
-git clone https://github.com/Advanced-Manufacturing-at-UoL/RoboMFG_Dynamixel_Integration.git
-bash ~/RoboMFG_Dynamixel_Integration/install.sh
+git clone https://github.com/Advanced-Manufacturing-at-UoL/RoboMFG_Dynamixel.git
+bash ~/RoboMFG_Dynamixel/install.sh
 ```
 - add the update manager entry to the moonraker.conf file in your config folder
 ```
@@ -16,8 +16,7 @@ bash ~/RoboMFG_Dynamixel_Integration/install.sh
 type: git_repo
 primary_branch: main
 path: ~/RoboMFG_Dynamixel_Integration
-origin: https://github.com/Advanced-Manufacturing-at-UoL/RoboMFG_Dynamixel_Integration.git
-managed_services:
-	klipper
+origin: https://github.com/Advanced-Manufacturing-at-UoL/RoboMFG_Dynamixel.git
+managed_services: klipper
 ```
 - reboot the host controller (typically a Raspberry Pi)
