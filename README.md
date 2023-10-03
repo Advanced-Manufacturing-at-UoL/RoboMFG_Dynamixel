@@ -1,4 +1,4 @@
-# RoboMFG_Dynamixel_Integration
+# RoboMFG_Dynamixel
 Klipper integration of Robotis Dynamixel servos 
 
 # Install Dynamixel Integration
