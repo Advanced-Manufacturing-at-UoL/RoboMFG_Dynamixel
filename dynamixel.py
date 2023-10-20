@@ -20,7 +20,7 @@ class Dynamixel:
 
         self.dxl = dxl_io.new_mx28(self.dmx_id,2)  # MX-28 protocol 2 with ID x)
         self.dxl.torque_disable()
-        self.dxl.set_position_mode()
+        self.dxl.set_extended_position_mode()
         self.dxl.set_velocity(int(self.velocity))
         self.dxl.set_acceleration(int(self.accel))
         self.dxl.write_control_table("Homing_Offset", int(self.offset/0.087891))
