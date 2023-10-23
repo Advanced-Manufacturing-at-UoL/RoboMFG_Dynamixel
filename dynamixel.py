@@ -9,6 +9,7 @@ class Dynamixel:
         self.port = config.get('port')
         self.dmx_id = config.getint('dynamixel_id')
         self.velocity = config.getint('velocity',50)
+        self.direction = config.getint('direction',1)
         self.accel = config.getint('acceleration',0)
         self.offset = config.getfloat('offset',0)
         self.name = config.get_name().split(' ')[-1]
@@ -79,7 +80,7 @@ class Dynamixel:
         return moving
 
     def do_move(self, movepos):
-        movepos = movepos * self.gear_ratio
+        movepos = movepos * self.gear_ratio * self.direction
         self.dxl.set_angle(movepos)
         while self.check_movement is True:
             pass
