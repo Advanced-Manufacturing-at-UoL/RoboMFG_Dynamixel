@@ -14,6 +14,7 @@ class Dynamixel:
         self.offset = config.getfloat('offset',0)
         self.name = config.get_name().split(' ')[-1]
         config_gear_ratio = config.getlists('gear_ratio', (), seps=(':', ','), count=2, parser=float)
+        self.moving = False
 
         self.gear_ratio = self.parse_gear_ratio(config_gear_ratio)
 
@@ -74,21 +75,22 @@ class Dynamixel:
 
     def check_movement(self):
         if self.dxl.read_control_table("Moving") == 1:
-            moving = True
+            self.moving = True
         else:
-            moving = False
-        return moving
+            self.moving = False
 
     def do_move(self, movepos, gcmd):
         movepos = movepos * self.gear_ratio * self.direction
         self.dxl.set_angle(movepos)
+        self.check_movement()
         sleep(0.2)
         # moving = int(self.dxl.read_control_table("Moving")) == 1
         gcmd.respond_info("Moving ...")
-        gcmd.respond_info(str(self.check_movement))
-        while self.check_movement is True:
+        gcmd.respond_info(str(self.moving))
+        while self.moving is True:
         # while moving == 1:
             gcmd.respond_info("Checking Movement ...")
+            self.check_movement()
             # moving = int(self.dxl.read_control_table("Moving")) == 1
             # pass
         gcmd.respond_info("Done")
