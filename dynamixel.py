@@ -59,7 +59,7 @@ class Dynamixel:
             enabled = self.dxl.read_control_table("Torque_Enable")
             if int(enabled) == 1:
                 movepos = gcmd.get_float('MOVE')
-                self.do_move(movepos)
+                self.do_move(movepos,gcmd)
             else:
                 raise gcmd.error('Dynamixel ' + str(self.name) + ' torque is not enabled')
 
@@ -79,11 +79,12 @@ class Dynamixel:
             moving = False
         return moving
 
-    def do_move(self, movepos):
+    def do_move(self, movepos, gcmd):
         movepos = movepos * self.gear_ratio * self.direction
         self.dxl.set_angle(movepos)
         while self.check_movement is True:
-            pass
+            gcmd.respond_info("MOVING ...")
+            #pass
 
     def check_velocity(self, velocity):
         velocity_limit = self.dxl.read_control_table("Velocity_Limit")
