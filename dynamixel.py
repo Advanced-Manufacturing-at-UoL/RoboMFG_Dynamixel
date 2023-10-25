@@ -38,10 +38,6 @@ class Dynamixel:
 
     cmd_DYNAMIXEL_help = "Command a Dynamixel servo"
     def cmd_DYNAMIXEL(self, gcmd):
-        self.check_movement()
-        while self.check_movement is True:
-            self.check_movement()
-
         enable = gcmd.get_int('ENABLE', None)
         if enable is not None:
             self.do_enable(enable)
