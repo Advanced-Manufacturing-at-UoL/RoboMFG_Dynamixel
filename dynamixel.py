@@ -61,7 +61,7 @@ class Dynamixel:
                 else:
                     sync = 1
                 movepos = gcmd.get_float('MOVE')
-                self.do_move(movepos, sync ,gcmd)
+                self.do_move(movepos, sync)
             else:
                 raise gcmd.error('Dynamixel ' + str(self.name) + ' torque is not enabled')
 
@@ -80,7 +80,7 @@ class Dynamixel:
         else:
             self.moving = False
 
-    def do_move(self, movepos, sync, gcmd):
+    def do_move(self, movepos, sync):
         toolhead = self.printer.lookup_object('toolhead')
         movepos = movepos * self.gear_ratio * self.direction
         self.dxl.set_angle(movepos)
