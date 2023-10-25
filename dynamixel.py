@@ -72,24 +72,24 @@ class Dynamixel:
             self.dxl.torque_disable()
             self.dxl.write_control_table("LED", 0)
 
-    # def check_movement(self, gcmd):
-    #     gcmd.respond_info("Checking Movement ...")
-    #     if self.dxl.read_control_table("Moving") == 1:
-    #         moving = True
-    #     else:
-    #         moving = False
-    #     return moving
+    def check_movement(self):
+        if self.dxl.read_control_table("Moving") == 1:
+            moving = True
+        else:
+            moving = False
+        return moving
 
     def do_move(self, movepos, gcmd):
         movepos = movepos * self.gear_ratio * self.direction
         self.dxl.set_angle(movepos)
-        sleep(0.1)
-        moving = int(self.dxl.read_control_table("Moving")) == 1
+        sleep(0.2)
+        # moving = int(self.dxl.read_control_table("Moving")) == 1
         gcmd.respond_info("Moving ...")
         # gcmd.respond_info(str(moving))
-        while moving == 1:
+        while self.check_movement is True:
+        # while moving == 1:
             gcmd.respond_info("Checking Movement ...")
-            moving = int(self.dxl.read_control_table("Moving")) == 1
+            # moving = int(self.dxl.read_control_table("Moving")) == 1
             # pass
         gcmd.respond_info("Done")
 
