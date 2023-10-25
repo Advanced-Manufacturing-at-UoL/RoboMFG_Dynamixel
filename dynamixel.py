@@ -88,7 +88,7 @@ class Dynamixel:
         movepos = movepos * self.gear_ratio * self.direction
         self.dxl.set_angle(movepos)
         # if sync is True:
-            sleep(0.3)
+        sleep(0.3)
         self.check_movement()
         gcmd.respond_info(str(self.moving))
         while self.moving is True:
