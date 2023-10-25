@@ -85,6 +85,8 @@ class Dynamixel:
             self.moving = False
 
     def do_move(self, movepos, sync, gcmd):
+        toolhead = self.printer.lookup_object('toolhead')
+        toolhead.wait_moves()
         movepos = movepos * self.gear_ratio * self.direction
         self.dxl.set_angle(movepos)
         if sync == 1:
