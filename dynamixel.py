@@ -37,8 +37,8 @@ class Dynamixel:
 
     cmd_DYNAMIXEL_help = "Command a Dynamixel servo"
     def cmd_DYNAMIXEL(self, gcmd):
-        # while self.check_movement is True:
-        #     pass
+        while self.check_movement is True:
+            pass
 
         enable = gcmd.get_int('ENABLE', None)
         if enable is not None:
@@ -72,12 +72,12 @@ class Dynamixel:
             self.dxl.torque_disable()
             self.dxl.write_control_table("LED", 0)
 
-    # def check_movement(self):
-    #     if self.dxl.read_control_table("Moving") == 1:
-    #         moving = True
-    #     else:
-    #         moving = False
-    #     return moving
+    def check_movement(self):
+        if self.dxl.read_control_table("Moving") == 1:
+            moving = True
+        else:
+            moving = False
+        return moving
 
     def do_move(self, movepos, gcmd):
         movepos = movepos * self.gear_ratio * self.direction
