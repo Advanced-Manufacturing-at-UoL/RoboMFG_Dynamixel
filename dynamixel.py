@@ -87,12 +87,12 @@ class Dynamixel:
     def do_move(self, movepos, sync, gcmd):
         movepos = movepos * self.gear_ratio * self.direction
         self.dxl.set_angle(movepos)
-        # if sync is True:
-        sleep(0.3)
-        self.check_movement()
-        gcmd.respond_info(str(self.moving))
-        while self.moving is True:
+        if sync == 1:
+            sleep(0.3)
             self.check_movement()
+            gcmd.respond_info(str(self.moving))
+            while self.moving is True:
+                self.check_movement()
 
     def check_velocity(self, velocity):
         velocity_limit = self.dxl.read_control_table("Velocity_Limit")
