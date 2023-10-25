@@ -85,7 +85,7 @@ class Dynamixel:
         sleep(0.2)
         # moving = int(self.dxl.read_control_table("Moving")) == 1
         gcmd.respond_info("Moving ...")
-        # gcmd.respond_info(str(moving))
+        gcmd.respond_info(str(self.check_movement))
         while self.check_movement is True:
         # while moving == 1:
             gcmd.respond_info("Checking Movement ...")
