@@ -92,7 +92,6 @@ class Dynamixel:
             toolhead.wait_moves()
             sleep(0.3)
             self.check_movement()
-            gcmd.respond_info(str(self.moving))
             while self.moving is True:
                 self.check_movement()
 
