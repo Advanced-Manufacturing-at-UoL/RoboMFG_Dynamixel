@@ -38,8 +38,9 @@ class Dynamixel:
 
     cmd_DYNAMIXEL_help = "Command a Dynamixel servo"
     def cmd_DYNAMIXEL(self, gcmd):
+        self.check_movement()
         while self.check_movement is True:
-            pass
+            self.check_movement()
 
         enable = gcmd.get_int('ENABLE', None)
         if enable is not None:
@@ -82,18 +83,11 @@ class Dynamixel:
     def do_move(self, movepos, gcmd):
         movepos = movepos * self.gear_ratio * self.direction
         self.dxl.set_angle(movepos)
-        sleep(0.2)
+        sleep(0.3)
         self.check_movement()
-        # moving = int(self.dxl.read_control_table("Moving")) == 1
-        gcmd.respond_info("Moving ...")
         gcmd.respond_info(str(self.moving))
         while self.moving is True:
-        # while moving == 1:
-            gcmd.respond_info("Checking Movement ...")
             self.check_movement()
-            # moving = int(self.dxl.read_control_table("Moving")) == 1
-            # pass
-        gcmd.respond_info("Done")
 
     def check_velocity(self, velocity):
         velocity_limit = self.dxl.read_control_table("Velocity_Limit")
