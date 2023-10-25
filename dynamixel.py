@@ -85,6 +85,7 @@ class Dynamixel:
         self.dxl.set_angle(movepos)
         moving = int(self.dxl.read_control_table("Moving")) == 1
         gcmd.respond_info("Moving ...")
+        gcmd.respond_info(str(moving))
         while moving == 1:
             gcmd.respond_info("Checking Movement ...")
             moving = int(self.dxl.read_control_table("Moving")) == 1
