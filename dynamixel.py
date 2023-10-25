@@ -74,9 +74,10 @@ class Dynamixel:
 
     def check_movement(self):
         if self.dxl.read_control_table("Moving") == 1:
-            return True
+            moving = True
         else:
-            return False
+            moving = False
+        return moving
 
     def do_move(self, movepos, gcmd):
         movepos = movepos * self.gear_ratio * self.direction
@@ -84,7 +85,7 @@ class Dynamixel:
         sleep(0.2)
         # moving = int(self.dxl.read_control_table("Moving")) == 1
         gcmd.respond_info("Moving ...")
-        gcmd.respond_info(self.check_movement)
+        gcmd.respond_info(str(self.check_movement))
         while self.check_movement is True:
         # while moving == 1:
             gcmd.respond_info("Checking Movement ...")
