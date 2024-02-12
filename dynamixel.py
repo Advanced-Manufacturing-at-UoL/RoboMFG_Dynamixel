@@ -12,6 +12,7 @@ class Dynamixel:
         self.direction = config.getint('direction',1)
         self.accel = config.getint('acceleration',0)
         self.offset = config.getfloat('offset',0)
+        self.mode = config.get('mode', "extended")
         self.name = config.get_name().split(' ')[-1]
         config_gear_ratio = config.getlists('gear_ratio', (), seps=(':', ','), count=2, parser=float)
         self.moving = False
@@ -22,7 +23,12 @@ class Dynamixel:
 
         self.dxl = dxl_io.new_mx28(self.dmx_id,2)  # MX-28 protocol 2 with ID x)
         self.dxl.torque_disable()
-        self.dxl.set_extended_position_mode()
+
+        if self.mode == "extended":
+            self.dxl.set_extended_position_mode()
+        else:
+            self.dxl.set_position_mode()
+
         self.dxl.set_velocity(int(self.velocity))
         self.dxl.set_acceleration(int(self.accel))
         self.dxl.write_control_table("Homing_Offset", int(self.offset/0.087891))
